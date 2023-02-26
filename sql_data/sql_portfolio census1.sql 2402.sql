@@ -17,7 +17,16 @@ select state, avg(growth)*100 avg_growth from census1..Data1 group by state orde
 select top 3 state,round (avg(sex_ratio),0)avg_sex_ratio from census1..Data1 group by state order by avg_sex_ratio asc 
 
 - -------to display the top and the lowest in one table literacy state
+drop table  if exists #topstates;
+create table #topstates
+( state nvarchar(255),
+topstate float
+)
+insert into #topstates
+select state ,round( avg(Literacy),0) avgliteracy_ratio from census1..Data1 
+group by state order by avgliteracy_ratio desc
 
+select top 3* from #topstates order by #topstates.topstate desc
 
 
 
