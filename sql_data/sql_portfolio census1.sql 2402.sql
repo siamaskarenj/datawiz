@@ -28,6 +28,33 @@ group by state order by avgliteracy_ratio desc
 
 select top 3* from #topstates order by #topstates.topstate desc
 
+----- lowest 3 state literacy rate
+drop table  if exists #bottomstates;
+create table #bottomstates
+( state nvarchar(255),
+bottomstate float
+)
+insert into #bottomstates
+select state ,round( avg(Literacy),0) avgliteracy_ratio from census1..Data1 
+group by state order by avgliteracy_ratio asc
+
+select top 3* from #bottomstates order by #bottomstates.bottomstate desc
+
+
+----union operator to combine the literacy rate
+select * from(
+select top 3* from #topstates order by #topstates.topstate desc)a
+union
+select * from(
+select top 3* from #bottomstates order by #bottomstates.bottomstate asc)b
+
+----states startin with letter a
+select distinct state from census1..Data1 where lower(state) like 'a%' or lower(state) like 'b%'
+
+select distinct state from census1..Data1 where lower(state) like 'a%' and lower(state) like '%d'
+
+
+
 
 
 
