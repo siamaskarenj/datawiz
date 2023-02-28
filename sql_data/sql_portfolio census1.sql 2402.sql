@@ -1,5 +1,32 @@
 select * from census1..Data1
 
+
+select*from census1..Data2
+
+select * from census1.dbo.Data1;
+
+select * from census1.dbo.Data2
+
+---number of rows present our dataset
+
+select count(*) from census1..Data1
+
+select count(*) from census1..Data2
+
+--dataset for jharkhand and bihar
+
+select * from census1..Data1 where State in('jharkhand','Bihar')
+
+---population of India
+
+select sum (population)as population from census1..Data2
+
+---average growth statewise(agregate function)
+
+select state, avg(growth)*100 as avg_growth from census1..Data1  group by state;
+
+
+
 ---avg sex ratio aggregate function
 select state ,round( avg(Sex_Ratio),0 )as avgSex_Ratio From census1..Data1 group by state order by avgSex_Ratio desc
 
@@ -52,6 +79,45 @@ select top 3* from #bottomstates order by #bottomstates.bottomstate asc)b
 select distinct state from census1..Data1 where lower(state) like 'a%' or lower(state) like 'b%'
 
 select distinct state from census1..Data1 where lower(state) like 'a%' and lower(state) like '%d'
+
+-----joining both the table(inner join)(we also have given allies)
+
+select a.district,a.state,a.Sex_Ratio/1000,b.population from census1..Data1 a inner join census1..Data2 b on a. District=b.District
+
+--to calculate the nos of female and male
+-----f/m=sex_ratio---1
+-----f+m=population--2
+----f=population-males----3
+----(population-males)=(sex_ratio)*males
+---population=males(sex_ratio+1)
+---males=population/(sex_ratio+1)
+
+---from equation 3
+---female=population-population/(sex_ratio+1)
+   -------=population(1-1/(sex_ratio+1)
+   -------=population*(sex_ratio))/(sex_ratio+1)
+
+   select d.state,sum(d.males) total_males,sum(d.females) total_females from
+(select c.district,c.state state,round(c.population/(c.sex_ratio+1),0) males, round((c.population*c.sex_ratio)/(c.sex_ratio+1),0) females from
+(select a.district,a.state,a.sex_ratio/1000 sex_ratio,b.population from census1..data1 a inner join census1..data2 b on a.district=b.district ) c) d
+group by d.state;
+
+----total literacy rate
+select c.state,sum(literate_people) total_literate_pop, sum(illiterate_people) total_illiterate_pop from
+(select d.district,d.state,round(d.literacy_ratio*d.population,0) literate_people,
+round((1-d.literacy_ratio)* d.population,0) illiterate_people from
+(select a.district,a.state,a.literacy/100 literacy_ratio,b.population from census1..data1 a
+inner join census1..data2 b on a.district=b.district) d) c
+group by c.state
+
+select c.state,sum(literate_people) total_literate_pop,sum(illiterate_people) total_lliterate_pop from 
+(select d.district,d.state,round(d.literacy_ratio*d.population,0) literate_people,
+round((1-d.literacy_ratio)* d.population,0) illiterate_people from
+(select a.district,a.state,a.literacy/100 literacy_ratio,b.population from census1..data1 a 
+inner join census1..data2 b on a.district=b.district) d) c
+group by c.state
+
+
 
 
 

@@ -1,0 +1,5 @@
+total literacy people/popuplation =literacy_ratio
+
+total literate people=literacy_ratio*population
+
+total illeterate people=(1-literacy_ratio)*population
