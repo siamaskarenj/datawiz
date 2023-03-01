@@ -110,19 +110,22 @@ round((1-d.literacy_ratio)* d.population,0) illiterate_people from
 inner join census1..data2 b on a.district=b.district) d) c
 group by c.state
 
-select c.state,sum(literate_people) total_literate_pop,sum(illiterate_people) total_lliterate_pop from 
-(select d.district,d.state,round(d.literacy_ratio*d.population,0) literate_people,
-round((1-d.literacy_ratio)* d.population,0) illiterate_people from
-(select a.district,a.state,a.literacy/100 literacy_ratio,b.population from census1..data1 a 
-inner join census1..data2 b on a.district=b.district) d) c
-group by c.state
+----population in previous_census
+select sum(m.previous_census) total_previous_census_population,sum(m.current_population)total_current_population from(
+select c. state,sum(c.previous_census) previous_census,sum(c.current_census_population)current_population from
+(select d.district,d.state,round(d.population/(1+d.growth),0) previous_census,round(d.population,0)  current_census_population from
+(select a.district,a.state,a.growth growth ,b.population from census1..Data1 a inner join census1..Data2 b on a.district=b.district) d) c
+group by c.state) m
 
 
+---population vs  area
 
 
-
-
-
+select sum(m.previous_census) total_previous_census_population,sum(m.current_population)total_current_population from(
+select c. state,sum(c.previous_census) previous_census,sum(c.current_census_population)current_population from
+(select d.district,d.state,round(d.population/(1+d.growth),0) previous_census,round(d.population,0)  current_census_population from
+(select a.district,a.state,a.growth growth ,b.population from census1..Data1 a inner join census1..Data2 b on a.district=b.district) d) c
+group by c.state) m
 
 
 
