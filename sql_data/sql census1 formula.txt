@@ -3,3 +3,11 @@ total literacy people/popuplation =literacy_ratio
 total literate people=literacy_ratio*population
 
 total illeterate people=(1-literacy_ratio)*population
+
+literate people + illiterate people = total population
+
+
+popjulation
+
+previous_census+growth*previous_census=population
+previous_census=population/(1+growth)
