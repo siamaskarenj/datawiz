@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
+
 *{
     margin:0;
     padding:0;
@@ -15,6 +18,11 @@
 }
 .navbar{
     display: flex;
+    align-items: center;
+    justify-content: center;
+    postion:sticky;
+    top:0;
+    cursor: pointer;
 }
 .nav-list{
    
@@ -44,11 +52,12 @@
     /*background-color: blue;*/
     width:50%;
     text-align: right;
+    padding:0 23px ;
 }
 #search{
     padding: 5px;
     font-size:17px;
-    border: 2px solid grey;
+    border: 2px solid white;
     border-radius:9px;
 }
 .background{
@@ -56,18 +65,20 @@
     background: rgba(0,0, 0,0.7) url('../Top-12-Pioneers-in-Education-scaled.jpg');
     background-size:cover;
     background-blend-mode: darken;
+    background-origin: border-box;
 }
-firstsection{
+
+.fristsection{
     height:100vh;
 }
 .box-main{
     max-width: 50%;
     display:flex;
-    justify-content: center-right;
+    justify-content: center;
     align-items:center;
     color:white;
     margin:auto;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family:'Times New Roman', Times, serif
     height:80%;
 }
 
@@ -80,20 +91,71 @@ firstsection{
 }
 
 .secondhalf{
-    width: 30%;
-    
-    
+    width:30%;
 }
 
 .secondhalf img{
-    width: 30%;
-    padding: 4px 0;
+    width: 70%;
     border:4px solid white;
-    border-radius:150px ;
+    border-radius: 150px;
     display:block;
     margin:auto;
+} 
+    
+.text-big{
+    font-size: 41px;
     
 }
 
+.text-small{
+    font-size:18px;
+ 
+}
 
+.btn{
+    padding: 8px 20px;
+    margin: 8px 3px;
+    border: 2px solid white;
+    border-radius: 8px;
+    background: none;
+    color: white;
+    cursor: pointer;
+}
+.btn-sm{
+    padding:6px 10px;
+    vertical-align: middle;
+}
 
+.section{
+    height: 500px;
+    display:flex;
+    align-items: center;
+    justify-content: space-evenly;
+    max width:50%;
+    margin:auto;
+    font-family: 'Ubuntu', sans-serif;
+
+    
+}
+
+.sectionleft{
+    flex-direction: row-reverse;
+    
+}
+.paras{
+    padding: 0px 65px;
+}
+
+.sectiontag{
+    font-size: large;
+    font-weight: bold;
+}
+.sectionsubtag{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.contact{
+    background-color: white;
+    height:34vh;
+}
+text-
