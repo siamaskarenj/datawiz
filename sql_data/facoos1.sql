@@ -78,3 +78,50 @@ select * from ingredients;
 select * from driver;
 select * from rolls;
 select * from rolls_recipes;
+
+---how many rolls were ordered?
+select count(roll_id) from customer_orders;
+
+---how many unique customer orders were made?
+
+select count(distinct customer_id)from customer_orders;
+
+
+---how many successfull orders were delivered by each of the driver?
+select driver_id ,count(distinct order_id)from driver_order where cancellation not in ('cancellation','customer cancellation') group by driver_id;
+
+----how many each type of roll was delivered?
+
+----clean the data null values and all
+select roll_id, count(roll_id)from
+ customer_orders where order_id in (
+ select order_id from
+(select *,case when cancellation in ('cancellation','customer cancellation') then 'c' else 'nc' end as order_cancel_details from driver_order)a
+where order_cancel_details='nc')
+group by roll_id;
+
+---how many veg and non veg roll customer order
+select a.*,b.roll_name from
+(
+select customer_id,roll_id,count(roll_id)int
+from customer_orders
+group by customer_id,roll_id)a inner join rolls b on a.roll_id=b.roll_id;
+
+
+---what was the maximum order of rolls delivered in a single order?
+select * from
+(
+select*,rank()over(order by int desc) rnk from
+(
+select order_id, count(roll_id)int
+from(
+select* from customer_orders where order_id in(
+select order_id from
+(select *,case when cancellation in ('cancellation','customer cancellation') then 'c' else 'nc' end as order_cancel_details from driver_order)a
+where order_cancel_details='nc'))b
+group by order_id
+)c)d where rnk=1;
+
+
+
+
