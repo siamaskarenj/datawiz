@@ -122,6 +122,8 @@ where order_cancel_details='nc'))b
 group by order_id
 )c)d where rnk=1;
 
-
-
+-------for each customer , how many delivered rolls had at least 1 change and how many had no change
+with_temp_customer_orders(order_id,customer_id,roll_id,not_include_items,extra_items_included,order_date)
+(
+select order_id,customer_id,roll_id,case when not_in
 
